@@ -22,7 +22,7 @@ Info *createInfo(){
 	Info *aux;
 	aux = new Info;
 
-	printf("<nome>;<CPF>;<profiss„o>\n");
+	printf("<nome>;<CPF>;<profiss√£o>\n");
 	scanf("%s %d %s", &aux->nome, &aux->CPF, &aux->profissao);
 	return aux;
 }
@@ -55,6 +55,19 @@ Node printTree(Node *root){
 	}
 }
 
+Node searchTree(Node *root, int searchCpf){
+	
+	if(root != NULL){
+		if(searchCpf == root->info->CPF){
+			printf("%s ", root->info->nome);
+			printf("%d ", root->info->CPF);
+			printf("%s ", root->info->profissao);
+		}
+		searchTree(root->sae, searchCpf);
+		searchTree(root->sad, searchCpf);
+	}
+}
+
 Node freeTree(Node *root){
 	if(root != NULL){
 		freeTree(root->sae);
@@ -68,7 +81,7 @@ int main(int argc, char** argv) {
 	char opc;
 	Node *arvoreCPF = initializeTree();
 	do{
-		printf("\n>MENU:\n\nI->Inserir\nR->Remover por CPF\nB->Buscar\nL->Listar\nS->Sair\nEscolha a operaÁ„o desejada: ");
+		printf("\n>MENU:\n\nI->Inserir\nR->Remover por CPF\nB->Buscar\nL->Listar\nS->Sair\nEscolha a opera√ß√£o desejada: ");
 		scanf("%c", &opc);	
 		switch(opc){
 			case 'I':
@@ -80,7 +93,10 @@ int main(int argc, char** argv) {
 				fflush(stdin);				
 			break;
 			case 'B':
-			
+				int searchCpf;
+				printf("Digite CPF: ");
+				scanf("%d", &searchCpf);
+				searchTree(arvoreCPF, searchCpf);
 			break;
 			case 'R':
 			
