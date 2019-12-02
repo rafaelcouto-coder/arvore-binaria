@@ -36,7 +36,11 @@ Node *insertTree(Node *root, Info *aux){
 		newElement->sae = NULL;
 		return newElement;
 	}else{
-		
+		if(aux->CPF > root->info->CPF){
+			root->sad = insertTree(root->sad, aux);
+		}else{
+			root->sae = insertTree(root->sae, aux);
+		}
 	}
 	return root;
 }
@@ -66,7 +70,6 @@ int main(int argc, char** argv) {
 	Node *arvoreNome = initializeTree();
 
 	arvoreCPF = insertTree(arvoreCPF, createInfo());
-	
 	arvoreCPF = insertTree(arvoreCPF, createInfo());
 
 	printTree(arvoreCPF);
