@@ -55,6 +55,19 @@ Node printTree(Node *root){
 	}
 }
 
+Node searchTree(Node *root, int searchCpf){
+	
+	if(root != NULL){
+		if(searchCpf == root->info->CPF){
+			printf("%s ", root->info->nome);
+			printf("%d ", root->info->CPF);
+			printf("%s ", root->info->profissao);
+		}
+		searchTree(root->sae, searchCpf);
+		searchTree(root->sad, searchCpf);
+	}
+}
+
 Node freeTree(Node *root){
 	if(root != NULL){
 		freeTree(root->sae);
@@ -65,12 +78,35 @@ Node freeTree(Node *root){
 
 int main(int argc, char** argv) {
 	setlocale(LC_ALL, "Portuguese");
-
+	char opc;
 	Node *arvoreCPF = initializeTree();
-	Node *arvoreNome = initializeTree();
-
-	arvoreCPF = insertTree(arvoreCPF, createInfo());
-	arvoreCPF = insertTree(arvoreCPF, createInfo());
+	do{
+		printf("\n>MENU:\n\nI->Inserir\nR->Remover por CPF\nB->Buscar\nL->Listar\nS->Sair\nEscolha a operação desejada: ");
+		scanf("%c", &opc);	
+		switch(opc){
+			case 'I':
+				arvoreCPF = insertTree(arvoreCPF, createInfo());
+				fflush(stdin);
+			break;
+			
+			case 'L':
+				printTree(arvoreCPF);
+				fflush(stdin);				
+			break;
+			
+			case 'B':
+				int searchCpf;
+				printf("Digite CPF: ");
+				scanf("%d", &searchCpf);
+				searchTree(arvoreCPF, searchCpf);
+			break;
+			
+			case 'R':
+				
+			break;
+			
+		}
+	}while(opc != 's');
 
 	printTree(arvoreCPF);
 	freeTree(arvoreCPF);
